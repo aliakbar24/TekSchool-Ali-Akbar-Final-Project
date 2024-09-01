@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         features = "classpath:features", // Directory for Feature file
         glue = "tekFinalProject.steps", //Package for all the steps
         dryRun = false, //set to true to scan feature for unimplemented steps
-        tags = "@TestCase01",
+        tags = "@TestCase02",
         plugin = {
                 "html:target/cucumber_report/index.html"
         }
