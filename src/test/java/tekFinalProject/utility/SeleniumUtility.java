@@ -1,6 +1,7 @@
 package tekFinalProject.utility;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import tekFinalProject.base.BaseSetup;
@@ -13,6 +14,9 @@ import org.apache.logging.log4j.Logger;
 
 public class SeleniumUtility extends BaseSetup {
     private static final Logger LOGGER = LogManager.getLogger(SeleniumUtility.class);
+
+    //WebDriver driver = new ChromeDriver();
+
 
     private WebDriverWait getWait() {
         return new WebDriverWait(getDriver(), Duration.ofSeconds(10));
