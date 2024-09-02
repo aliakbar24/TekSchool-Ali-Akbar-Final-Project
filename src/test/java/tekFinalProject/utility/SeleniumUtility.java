@@ -1,8 +1,8 @@
 package tekFinalProject.utility;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import tekFinalProject.base.BaseSetup;
 
@@ -15,9 +15,13 @@ import org.apache.logging.log4j.Logger;
 public class SeleniumUtility extends BaseSetup {
     private static final Logger LOGGER = LogManager.getLogger(SeleniumUtility.class);
 
-    //WebDriver driver = new ChromeDriver();
-
-
+    public static void waitTime(int wait){
+        try{
+            Thread.sleep(wait);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
     private WebDriverWait getWait() {
         return new WebDriverWait(getDriver(), Duration.ofSeconds(10));
     }
@@ -41,6 +45,11 @@ public class SeleniumUtility extends BaseSetup {
         WebElement element = waitForVisibility(locator);
         element.clear();
         element.sendKeys(value);
+    }
+    public void selectFromDropDown(By locator, String visibleText) {
+        WebElement element = waitForVisibility(locator);
+        Select select = new Select(element);
+        select.selectByVisibleText(visibleText);
     }
 
     public String getElementText(By locator) {

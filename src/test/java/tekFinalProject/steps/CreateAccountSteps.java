@@ -15,52 +15,38 @@ import java.time.Duration;
 import java.util.Map;
 
 public class CreateAccountSteps extends SeleniumUtility {
-
+    private static String emailToUse;
     @Given("user navigates to create an account page")
     public void userNavigatesToCreateAccountPage() {
-        clickOnElement(By.xpath("//*[contains(@class, 'css-1jp0m7c')]"));
+        clickOnElement(CreateAccountPage.CREATE_ACCOUNT_BTN);
     }
 
     @Then("validate page title as {string}")
     public void validate_page_title_as(String expectedTitle) {
-        String pageTitle = getElementText(By.xpath("//*[contains(@class, 'css-1jb3vzl')]"));
-        Assert.assertEquals("Page title does not match the expected value.", expectedTitle, pageTitle);
+        String pageTitle = getElementText(By.xpath("//h2[text()='Create Primary Account Holder']"));
+        Assert.assertEquals("Create Primary Account Holder", expectedTitle, pageTitle);
     }
 
     //------------------------------------------------------------------------------------------------------------//
-    private static String emailToUse;
     @Given("user clicks on create new primary account")
     public void user_clicks_on_create_new_primary_account() {
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         clickOnElement(HomePage.CREATE_PRIMARY_ACCOUNT_BTN);
     }
     @When("user enters new account info")
-    public void user_enters_new_account_info(DataTable dataTable) {
-        Map<String, String> data = dataTable.asMap();
-        String email = data.get("email");
-        String title = data.get("title");
-        String firstName = data.get("firstName");
-        String lastName = data.get("lastName");
-        String gender = data.get("gender");
-        String maritalStatus = data.get("maritalStatus");
-        String employmentStatus = data.get("employmentStatus");
-        String dateOfBirth = data.get("dateOfBirth");
-
-        emailToUse = email.equalsIgnoreCase("random")
-                ? RandomEmailGenerator.generateRandomEmail() : email;
+    public void user_enters_new_account_info() {
 
         sendText(CreateAccountPage.EMAIL_INPUT, emailToUse);
         clickOnElement(CreateAccountPage.TITLE_INPUT);
         clickOnElement(By.xpath("//*[contains(@value, 'Mr.')]"));
-        sendText(CreateAccountPage.FIRSTNAME_INPUT, firstName);
-        sendText(CreateAccountPage.LASTNAME_INPUT, lastName);
+        sendText(CreateAccountPage.FIRSTNAME_INPUT, "Ali");
+        sendText(CreateAccountPage.LASTNAME_INPUT, "Akbar");
         clickOnElement(CreateAccountPage.GENDER_INPUT);
         clickOnElement(By.xpath("//option[text()='Male']"));
-        sendText(CreateAccountPage.MARITAL_INPUT, maritalStatus);
+        clickOnElement(CreateAccountPage.MARITAL_INPUT);
         clickOnElement(By.xpath("//option[text()='Single']"));
         clickOnElement(CreateAccountPage.MARITAL_INPUT);
-        sendText(CreateAccountPage.EMPLOYMENT_INPUT, employmentStatus);
-        sendText(CreateAccountPage.DOB_INPUT, dateOfBirth);
+        sendText(CreateAccountPage.EMPLOYMENT_INPUT, "Student");
+        sendText(CreateAccountPage.DOB_INPUT, "10/15/2001");
     }
     @Then("validate email address in account page match")
     public void validate_email_address_in_account_page_match() {
@@ -69,37 +55,43 @@ public class CreateAccountSteps extends SeleniumUtility {
 
     }
 
+    @Then("fill out username password and confirm password")
+    public void fill_out_username_password_and_confirm_password() {
+        sendText(CreateAccountPage.USERNAME_INPUT, "Ali01");
+        sendText(CreateAccountPage.PASSWORD_INPUT, "Akbar@123");
+        sendText(CreateAccountPage.CONFIRM_PASSWORD_INPUT, "Akbar@123");
+    }
+
+
+    @Then("user click on submit button")
+    public void userClickOnSubmitButton() {
+        clickOnElement(By.xpath("//button[text()='Submit']"));
+    }
+
     //----------------------------------------------------------------------------------------------------//
 
-    @When("user enters credentials that already exits")
-    public void user_enters_credentials_that_already_exits(DataTable dataTable) {
-        Map<String, String> data = dataTable.asMap();
-        String email = data.get("email");
-        String title = data.get("title");
-        String firstName = data.get("firstName");
-        String lastName = data.get("lastName");
-        String gender = data.get("gender");
-        String maritalStatus = data.get("maritalStatus");
-        String employmentStatus = data.get("employmentStatus");
-        String dateOfBirth = data.get("dateOfBirth");
 
-        //sendText();
+    @When("user enters credentials that already exits")
+    public void user_enters_credentials_that_already_exits() {
+
+        sendText(CreateAccountPage.EMAIL_INPUT, "akbar.ali@gmail.com");
         clickOnElement(CreateAccountPage.TITLE_INPUT);
         clickOnElement(By.xpath("//*[contains(@value, 'Mr.')]"));
-        sendText(CreateAccountPage.FIRSTNAME_INPUT, firstName);
-        sendText(CreateAccountPage.LASTNAME_INPUT, lastName);
+        sendText(CreateAccountPage.FIRSTNAME_INPUT, "Ali");
+        sendText(CreateAccountPage.LASTNAME_INPUT, "Akbar");
         clickOnElement(CreateAccountPage.GENDER_INPUT);
         clickOnElement(By.xpath("//option[text()='Male']"));
-        sendText(CreateAccountPage.MARITAL_INPUT, maritalStatus);
+        clickOnElement(CreateAccountPage.MARITAL_INPUT);
         clickOnElement(By.xpath("//option[text()='Single']"));
         clickOnElement(CreateAccountPage.MARITAL_INPUT);
-        sendText(CreateAccountPage.EMPLOYMENT_INPUT, employmentStatus);
-        sendText(CreateAccountPage.DOB_INPUT, dateOfBirth);
+        sendText(CreateAccountPage.EMPLOYMENT_INPUT, "Student");
+        sendText(CreateAccountPage.DOB_INPUT, "10/15/2001");
     }
     @Then("error message will pop up")
     public void error_message_will_pop_up() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        String errorMessage = getElementText(By.xpath("//div[text()='ERROR']"));
+        Assert.assertEquals("ERROR", errorMessage);
+        System.out.println(errorMessage);
     }
 
 

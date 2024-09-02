@@ -11,5 +11,9 @@ public class CreateAccountPage {
     public static final By MARITAL_INPUT = By.name("maritalStatus");
     public static final By EMPLOYMENT_INPUT = By.name("employmentStatus");
     public static final By DOB_INPUT = By.name("dateOfBirth");
-    public static final By CREATE_ACCOUNT_BTN = By.xpath("//button[text()='Create Account']");
+    public static final By CREATE_ACCOUNT_BTN = By.linkText("Create Primary Account");
+    public static final By USERNAME_INPUT = By.name("username");
+    public static final By PASSWORD_INPUT = By.name("password");
+    public static final By CONFIRM_PASSWORD_INPUT = By.name("confirm");
+    public static final By SUBMIT_BTN = By.xpath("//button[text()='Submit']");
 }

@@ -10,7 +10,7 @@ Feature: scenario for correct and incorrect credentials
     Scenario: User uses invalid credentials for log in
       Given user clicks on Login button
       Then user enters "<username>" and "<password>"
-      Then user clicks on "Sign in" button
+      Then user clicks on Sign in button
       Then user should see error
         | username   | password       |
         | wrongname  | tek_supervisor |

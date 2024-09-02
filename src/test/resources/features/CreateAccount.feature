@@ -18,6 +18,8 @@ Feature: Scenarios for creating an account
       | dateOfBirth      | 10152001 |
     When user clicks on "Sign Up" button
     Then validate email address in account page match
+    Then fill out username password and confirm password
+    Then user click on submit button
 
     @TestCase04
     Scenario: Create an account with existing credentials
